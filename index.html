@@ -3,44 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soundify</title>
+  <title>Soundify - Music Recognition</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- ACRCloud SDK -->
+  <script src="https://cdn.acrcloud.com/js/acrcloud.min.js"></script>
 </head>
 <body>
-
   <div class="container">
-
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <h2 class="logo">🎧 Soundify</h2>
-      <nav>
-        <ul>
-          <li><a href="index.html">🏠 Home</a></li>
-          <li><a href="search.html">🔍 Search</a></li>
-          <li><a href="playlist.html">🎵 Playlist</a></li>
-          <li><a href="history.html">🕘 History</a></li>
-        </ul>
-      </nav>
-    </aside>
+    <div class="sidebar">
+      <h2 class="logo">Soundify</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="playlist.html">Playlist</a></li>
+      </ul>
+    </div>
 
     <!-- Main Content -->
-    <main class="main-content">
-<div class="recognition-section">
-  <button class="mic-btn" onclick="recognizeSong()">🎤</button>
-  <p id="status">Tap the microphone to recognize a song</p>
-  <div id="results" class="results-grid"></div>
-  <div id="player" class="player-container"></div>
-</div>
-<script src="js/app.js"></script>
+    <div class="main-content">
+      <div class="recognition-section">
+        <h2>Discover Music</h2>
 
+        <!-- Voice Command -->
+        <button class="mic-btn" onclick="recognizeSong()">🎤 Say Song Name</button>
 
+        <!-- Music Recognition -->
+        <button class="mic-btn" onclick="recognizeMusic()">🎧 Listen Song Playing</button>
+
+        <p id="status">Tap a button to recognize a song</p>
+
+        <div id="results" class="results-grid"></div>
+        <div id="player" class="player-container"></div>
       </div>
-
-    </main>
-
+    </div>
   </div>
 
+  <!-- Your JS -->
   <script src="js/app.js"></script>
 </body>
 </html>
