@@ -10,8 +10,8 @@ app.use(cors());
 
 const upload = multer({ dest: "uploads/" });
 
-const accessKey = "YOUR_ACCESS_KEY";
-const accessSecret = "YOUR_ACCESS_SECRET";
+const accessKey = "629a857dd6fe92f0a8e8e9df6cb175b0";
+const accessSecret = "BCWvEEhw0ofIS7vPKgWqwGXF0xTgsHXuzxB4mBXc";
 const host = "identify-eu-west-1.acrcloud.com"; // depends on region
 
 app.post("/recognize", upload.single("audio"), async (req, res) => {
