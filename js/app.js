@@ -3,7 +3,7 @@
 // ------------------------------
 
 // Replace with your YouTube API key
-const API_KEY = "AIzaSyDhnD7PM1BveGHMhksMcW3RgX4L1avA81g";
+const API_KEY = "YOUR_YOUTUBE_API_KEY";
 
 // DOM Elements
 const statusText = document.getElementById("status");
@@ -48,29 +48,37 @@ async function recognizeMusic() {
   statusText.textContent = "Listening for song... 🎶";
 
   try {
+    // ------------------------------
+    // ACRCloud JS SDK
+    // ------------------------------
     const acr = new ACRCloud({
-      host: "identify-eu-west-1.acrcloud.com",
-      access_key: "629a857dd6fe92f0a8e8e9df6cb175b0",
-      access_secret: "BCWvEEhw0ofIS7vPKgWqwGXF0xTgsHXuzxB4mBXc"
+      host: "identify-eu-west-1.acrcloud.com",      // <-- Paste your host here
+      access_key: "629a857dd6fe92f0a8e8e9df6cb175b0", // <-- Paste your access key here
+      access_secret: "BCWvEEhw0ofIS7vPKgWqwGXF0xTgsHXuzxB4mBXc", // <-- Paste your access secret here
+      timeout: 10
     });
 
-    const result = await acr.recognize(); // records & analyzes music
+    // Start recognition
+    const result = await acr.recognize();
+    console.log("ACRCloud result:", result);
 
-    if(result.status.code === 0) {
+    if(result.status.code === 0 && result.metadata.music.length > 0) {
       const songTitle = result.metadata.music[0].title;
       const artist = result.metadata.music[0].artists[0].name;
       statusText.textContent = `Found: ${songTitle} - ${artist}`;
 
+      // Search YouTube
       const videos = await searchYouTube(`${songTitle} ${artist}`);
       if(videos.length > 0) playVideo(videos[0].id.videoId);
 
     } else {
-      statusText.textContent = "No song detected.";
+      statusText.textContent = "No song detected. Try again!";
+      console.error("ACRCloud did not return music info:", result);
     }
 
   } catch(err) {
-    console.error(err);
-    statusText.textContent = "Error detecting song.";
+    console.error("ACRCloud error:", err);
+    statusText.textContent = "Error detecting song. Check console.";
   }
 }
 
