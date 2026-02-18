@@ -2,35 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Soundify</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <div class="container">
 
+    <!-- Sidebar -->
     <aside class="sidebar">
       <h2 class="logo">🎧 Soundify</h2>
       <nav>
         <ul>
-          <li>🏠 Home</li>
-          <li>🔍 Search</li>
-          <li>🎵 Playlist</li>
-          <li>🕘 History</li>
+          <li><a href="index.html">🏠 Home</a></li>
+          <li><a href="#">🔍 Search</a></li>
+          <li><a href="#">🎵 Playlist</a></li>
+          <li><a href="#">🕘 History</a></li>
         </ul>
       </nav>
     </aside>
 
+    <!-- Main Content -->
     <main class="main-content">
+
       <div class="recognition-section">
-        <button class="mic-btn">🎤</button>
-        <p id="status">Tap to recognize</p>
-        <div id="result"></div>
+        <button class="mic-btn" onclick="recognizeSong()">🎤</button>
+        <p id="status">Tap the microphone to recognize a song</p>
+
+        <div id="result-card" class="result-card hidden">
+          <h3 id="song-title"></h3>
+          <p id="song-artist"></p>
+          <button class="play-btn">▶ Play</button>
+        </div>
+
       </div>
+
     </main>
 
   </div>
 
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
