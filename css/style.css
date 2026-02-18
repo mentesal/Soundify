@@ -108,3 +108,67 @@ body {
 .hidden {
   display: none;
 }
+/* Search Page */
+.search-page {
+  flex-direction: column;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.search-container input {
+  padding: 10px;
+  width: 300px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+}
+
+.search-container button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background: #7b2cff;
+  color: white;
+  cursor: pointer;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.song-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.song-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(123, 44, 255, 0.6);
+}
+
+.song-card button {
+  margin-top: 10px;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.player-container {
+  margin-top: 30px;
+}
+
+.hidden {
+  display: none;
+}
