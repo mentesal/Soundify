@@ -1,45 +1,41 @@
-const demoSongs = [
-  {
-    title: "Blinding Lights",
-    videoId: "4NRXx6U8ABQ"
-  },
-  {
-    title: "Shape of You",
-    videoId: "JGwWNGJdvx8"
-  },
-  {
-    title: "Levitating",
-    videoId: "TUVcZfQe-Kw"
-  }
-];
+const API_KEY = "PASTE_YOUR_API_KEY_HERE";
 
-function searchSongs() {
-  const query = document.getElementById("searchInput").value.toLowerCase();
+async function searchSongs() {
+  const query = document.getElementById("searchInput").value;
   const resultsDiv = document.getElementById("results");
 
-  resultsDiv.innerHTML = "";
+  resultsDiv.innerHTML = "Searching...";
 
-  const filtered = demoSongs.filter(song =>
-    song.title.toLowerCase().includes(query)
-  );
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${query}&key=${API_KEY}`;
 
-  if (filtered.length === 0) {
-    resultsDiv.innerHTML = "<p>No songs found.</p>";
-    return;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    resultsDiv.innerHTML = "";
+
+    data.items.forEach(item => {
+      const videoId = item.id.videoId;
+      const title = item.snippet.title;
+      const thumbnail = item.snippet.thumbnails.medium.url;
+
+      const card = document.createElement("div");
+      card.classList.add("song-card");
+
+      card.innerHTML = `
+        <img src="${thumbnail}" width="100%">
+        <h4>${title}</h4>
+        <button onclick="playSong('${videoId}')">▶ Play</button>
+        <button onclick="saveToPlaylist('${title}', '${videoId}')">+ Save</button>
+      `;
+
+      resultsDiv.appendChild(card);
+    });
+
+  } catch (error) {
+    resultsDiv.innerHTML = "Error fetching results.";
+    console.error(error);
   }
-
-  filtered.forEach(song => {
-    const card = document.createElement("div");
-    card.classList.add("song-card");
-
-    card.innerHTML = `
-      <h4>${song.title}</h4>
-      <button onclick="playSong('${song.videoId}')">▶ Play</button>
-      <button onclick="saveToPlaylist('${song.title}', '${song.videoId}')">+ Save</button>
-    `;
-
-    resultsDiv.appendChild(card);
-  });
 }
 
 function playSong(videoId) {
