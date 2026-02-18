@@ -49,9 +49,9 @@ async function recognizeMusic() {
 
   try {
     const acr = new ACRCloud({
-      host: "YOUR_ACRCLOUD_HOST",
-      access_key: "YOUR_ACRCLOUD_KEY",
-      access_secret: "YOUR_ACRCLOUD_SECRET"
+      host: "identify-eu-west-1.acrcloud.com",
+      access_key: "629a857dd6fe92f0a8e8e9df6cb175b0",
+      access_secret: "BCWvEEhw0ofIS7vPKgWqwGXF0xTgsHXuzxB4mBXc"
     });
 
     const result = await acr.recognize(); // records & analyzes music
