@@ -1,14 +1,17 @@
+// ------------------------------
+// Soundify App: Voice Command + Music Recognition
+// ------------------------------
 
-const API_KEY = "AIzaSyDhnD7PM1BveGHMhksMcW3RgX4L1avA81g";
+// Replace with your YouTube API key
+const API_KEY = "YOUR_YOUTUBE_API_KEY";
 
 // DOM Elements
-const micBtn = document.querySelector(".mic-btn");
 const statusText = document.getElementById("status");
 const resultsContainer = document.getElementById("results");
 const playerContainer = document.getElementById("player");
 
 // ------------------------------
-// Voice Recognition
+// 1️⃣ Voice Command Recognition
 // ------------------------------
 function recognizeSong() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -29,13 +32,8 @@ function recognizeSong() {
   recognition.onresult = async (event) => {
     const transcript = event.results[0][0].transcript;
     statusText.textContent = `Searching for: ${transcript}`;
-
     const videos = await searchYouTube(transcript);
-
-    if(videos.length > 0) {
-      // Auto play first result
-      playVideo(videos[0].id.videoId);
-    }
+    if(videos.length > 0) playVideo(videos[0].id.videoId);
   };
 
   recognition.onerror = () => {
@@ -44,14 +42,46 @@ function recognizeSong() {
 }
 
 // ------------------------------
-// YouTube Search Function
+// 2️⃣ Music Recognition via ACRCloud
+// ------------------------------
+async function recognizeMusic() {
+  statusText.textContent = "Listening for song... 🎶";
+
+  try {
+    const acr = new ACRCloud({
+      host: "YOUR_ACRCLOUD_HOST",
+      access_key: "YOUR_ACRCLOUD_KEY",
+      access_secret: "YOUR_ACRCLOUD_SECRET"
+    });
+
+    const result = await acr.recognize(); // records & analyzes music
+
+    if(result.status.code === 0) {
+      const songTitle = result.metadata.music[0].title;
+      const artist = result.metadata.music[0].artists[0].name;
+      statusText.textContent = `Found: ${songTitle} - ${artist}`;
+
+      const videos = await searchYouTube(`${songTitle} ${artist}`);
+      if(videos.length > 0) playVideo(videos[0].id.videoId);
+
+    } else {
+      statusText.textContent = "No song detected.";
+    }
+
+  } catch(err) {
+    console.error(err);
+    statusText.textContent = "Error detecting song.";
+  }
+}
+
+// ------------------------------
+// 3️⃣ YouTube Search
 // ------------------------------
 async function searchYouTube(query) {
   try {
     const response = await fetch(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=6&key=${API_KEY}`
     );
-
     const data = await response.json();
 
     if(!data.items || data.items.length === 0){
@@ -62,15 +92,15 @@ async function searchYouTube(query) {
     displayResults(data.items);
     return data.items;
 
-  } catch (error) {
-    resultsContainer.innerHTML = "<p>Error fetching results.</p>";
+  } catch(error) {
     console.error(error);
+    resultsContainer.innerHTML = "<p>Error fetching results.</p>";
     return [];
   }
 }
 
 // ------------------------------
-// Display Search Results
+// 4️⃣ Display YouTube Results
 // ------------------------------
 function displayResults(videos) {
   resultsContainer.innerHTML = "";
@@ -92,7 +122,7 @@ function displayResults(videos) {
 }
 
 // ------------------------------
-// Play Video
+// 5️⃣ Play YouTube Video
 // ------------------------------
 window.playVideo = function(videoId) {
   playerContainer.innerHTML = `
@@ -104,8 +134,3 @@ window.playVideo = function(videoId) {
     </iframe>
   `;
 };
-
-// ------------------------------
-// Optional: Mic Button Click (if you remove onclick from HTML)
-// ------------------------------
-// micBtn.addEventListener("click", recognizeSong);
