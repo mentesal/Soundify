@@ -18,11 +18,15 @@ function recognizeSong() {
 
   recognition.start();
 
-  recognition.onresult = async (event) => {
-    const transcript = event.results[0][0].transcript;
-    statusText.textContent = `Searching for: ${transcript}`;
-    searchYouTube(transcript);
-  };
+recognition.onresult = async (event) => {
+  const transcript = event.results[0][0].transcript;
+  statusText.textContent = `Searching for: ${transcript}`;
+  const videos = await searchYouTube(transcript);
+  if(videos.length > 0) {
+    playVideo(videos[0].id.videoId); // auto play first result
+  }
+};
+
 
   recognition.onerror = () => {
     statusText.textContent = "Voice recognition failed.";
