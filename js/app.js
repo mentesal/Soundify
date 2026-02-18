@@ -1,25 +1,82 @@
-const songs = [
-  { title: "Blinding Lights", artist: "The Weeknd" },
-  { title: "Shape of You", artist: "Ed Sheeran" },
-  { title: "Levitating", artist: "Dua Lipa" }
-];
+const micBtn = document.getElementById("micBtn");
+const statusText = document.getElementById("status");
+const resultsContainer = document.getElementById("results");
+const playerContainer = document.getElementById("player");
 
-function recognizeSong() {
-  const status = document.getElementById("status");
-  const resultCard = document.getElementById("result-card");
-  const title = document.getElementById("song-title");
-  const artist = document.getElementById("song-artist");
+const API_KEY = "YOUR_API_KEY_HERE"; // <-- Put your real key here
 
-  status.innerText = "Listening... 🎧";
-  resultCard.classList.add("hidden");
+// Speech Recognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
 
-  setTimeout(() => {
-    const randomSong = songs[Math.floor(Math.random() * songs.length)];
+recognition.lang = "en-US";
+recognition.continuous = false;
+recognition.interimResults = false;
 
-    title.innerText = randomSong.title;
-    artist.innerText = randomSong.artist;
+micBtn.addEventListener("click", () => {
+  recognition.start();
+  statusText.textContent = "Listening...";
+});
 
-    status.innerText = "Song Identified!";
-    resultCard.classList.remove("hidden");
-  }, 3000);
+recognition.onresult = async (event) => {
+  const transcript = event.results[0][0].transcript;
+  statusText.textContent = `Searching for: ${transcript}`;
+  searchYouTube(transcript);
+};
+
+recognition.onerror = () => {
+  statusText.textContent = "Voice recognition failed.";
+};
+
+// Search YouTube
+async function searchYouTube(query) {
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=6&key=${API_KEY}`
+    );
+
+    const data = await response.json();
+
+    if (!data.items || data.items.length === 0) {
+      resultsContainer.innerHTML = "<p>No songs found.</p>";
+      return;
+    }
+
+    displayResults(data.items);
+  } catch (error) {
+    resultsContainer.innerHTML = "<p>Error fetching results.</p>";
+  }
+}
+
+// Display Results
+function displayResults(videos) {
+  resultsContainer.innerHTML = "";
+
+  videos.forEach(video => {
+    const videoId = video.id.videoId;
+    const title = video.snippet.title;
+    const thumbnail = video.snippet.thumbnails.medium.url;
+
+    const card = document.createElement("div");
+    card.classList.add("song-card");
+
+    card.innerHTML = `
+      <img src="${thumbnail}" width="100%">
+      <h4>${title}</h4>
+      <button onclick="playVideo('${videoId}')">Play</button>
+    `;
+
+    resultsContainer.appendChild(card);
+  });
+}
+
+// Play Video
+function playVideo(videoId) {
+  playerContainer.innerHTML = `
+    <iframe width="100%" height="315"
+      src="https://www.youtube.com/embed/${videoId}"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  `;
 }
