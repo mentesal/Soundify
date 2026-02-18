@@ -172,3 +172,10 @@ body {
 .hidden {
   display: none;
 }
+/* Playlist Page */
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
