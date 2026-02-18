@@ -26,16 +26,14 @@
 
     <!-- Main Content -->
     <main class="main-content">
+<div class="recognition-section">
+  <button class="mic-btn" onclick="recognizeSong()">🎤</button>
+  <p id="status">Tap the microphone to recognize a song</p>
+  <div id="results" class="results-grid"></div>
+  <div id="player" class="player-container"></div>
+</div>
+<script src="js/app.js"></script>
 
-      <div class="recognition-section">
-        <button class="mic-btn" onclick="recognizeSong()">🎤</button>
-        <p id="status">Tap the microphone to recognize a song</p>
-
-        <div id="result-card" class="result-card hidden">
-          <h3 id="song-title"></h3>
-          <p id="song-artist"></p>
-          <button class="play-btn">▶ Play</button>
-        </div>
 
       </div>
 
