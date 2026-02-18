@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playlist | Soundify</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="logo">🎧 Soundify</h2>
+      <nav>
+        <ul>
+          <li><a href="index.html">🏠 Home</a></li>
+          <li><a href="search.html">🔍 Search</a></li>
+          <li><a href="playlist.html">🎵 Playlist</a></li>
+          <li><a href="#">🕘 History</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <h2>My Playlist</h2>
+      <div id="playlist" class="playlist-grid"></div>
+
+      <div id="player" class="player-container hidden">
+        <iframe id="youtubePlayer"
+          width="560"
+          height="315"
+          src=""
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="js/playlist.js"></script>
+</body>
+</html>
