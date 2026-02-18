@@ -1,4 +1,4 @@
-const API_KEY = "PASTE_YOUR_API_KEY_HERE";
+const API_KEY = "AIzaSyDhnD7PM1BveGHMhksMcW3RgX4L1avA81g";
 
 async function searchSongs() {
   const query = document.getElementById("searchInput").value;
