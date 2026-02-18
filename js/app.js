@@ -1,4 +1,4 @@
-const micBtn = document.getElementById("mic-Btn");
+const micBtn = document.getElementById("micBtn");
 const statusText = document.getElementById("status");
 const resultsContainer = document.getElementById("results");
 const playerContainer = document.getElementById("player");
