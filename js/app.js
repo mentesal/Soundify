@@ -3,7 +3,7 @@ const statusText = document.getElementById("status");
 const resultsContainer = document.getElementById("results");
 const playerContainer = document.getElementById("player");
 
-const API_KEY = "YOUR_API_KEY_HERE"; // <-- Put your real key here
+const API_KEY = "AIzaSyDhnD7PM1BveGHMhksMcW3RgX4L1avA81g"; // <-- Put your real key here
 
 // Speech Recognition
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
