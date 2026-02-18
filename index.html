@@ -10,16 +10,32 @@
 </head>
 <body>
   <div class="container">
+
     <!-- Sidebar -->
     <div class="sidebar">
+
+      <!-- Modern Animated Logo -->
       <div class="logo">
-  <img src="assets/logos.png" alt="Soundify Logo">
-</div>
+        <svg class="logo-icon" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="soundifyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00ff9f"/>
+              <stop offset="100%" stop-color="#00c3ff"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Play Shape -->
+          <polygon points="30,20 80,50 30,80" fill="url(#soundifyGradient)" />
+        </svg>
+      </div>
+
+      <!-- Sidebar Menu -->
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="search.html">Search</a></li>
         <li><a href="playlist.html">Playlist</a></li>
       </ul>
+
     </div>
 
     <!-- Main Content -->
@@ -39,6 +55,7 @@
         <div id="player" class="player-container"></div>
       </div>
     </div>
+
   </div>
 
   <!-- Your JS -->
