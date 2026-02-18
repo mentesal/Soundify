@@ -45,41 +45,39 @@ function recognizeSong() {
 // 2️⃣ Music Recognition via ACRCloud
 // ------------------------------
 async function recognizeMusic() {
-  statusText.textContent = "Listening for song... 🎶";
+    const status = document.getElementById("status");
+    status.textContent = "Listening...";
 
-  try {
-    // ------------------------------
-    // ACRCloud JS SDK
-    // ------------------------------
-    const acr = new ACRCloud({
-      host: "identify-eu-west-1.acrcloud.com",      // <-- Paste your host here
-      access_key: "629a857dd6fe92f0a8e8e9df6cb175b0", // <-- Paste your access key here
-      access_secret: "BCWvEEhw0ofIS7vPKgWqwGXF0xTgsHXuzxB4mBXc", // <-- Paste your access secret here
-      timeout: 10
-    });
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+    let chunks = [];
 
-    // Start recognition
-    const result = await acr.recognize();
-    console.log("ACRCloud result:", result);
+    mediaRecorder.ondataavailable = e => chunks.push(e.data);
 
-    if(result.status.code === 0 && result.metadata.music.length > 0) {
-      const songTitle = result.metadata.music[0].title;
-      const artist = result.metadata.music[0].artists[0].name;
-      statusText.textContent = `Found: ${songTitle} - ${artist}`;
+    mediaRecorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: "audio/wav" });
+        const formData = new FormData();
+        formData.append("audio", blob);
 
-      // Search YouTube
-      const videos = await searchYouTube(`${songTitle} ${artist}`);
-      if(videos.length > 0) playVideo(videos[0].id.videoId);
+        const response = await fetch("http://localhost:3000/recognize", {
+            method: "POST",
+            body: formData
+        });
 
-    } else {
-      statusText.textContent = "No song detected. Try again!";
-      console.error("ACRCloud did not return music info:", result);
-    }
+        const result = await response.json();
+        console.log(result);
 
-  } catch(err) {
-    console.error("ACRCloud error:", err);
-    statusText.textContent = "Error detecting song. Check console.";
-  }
+        if (result.metadata) {
+            const song = result.metadata.music[0];
+            const query = `${song.title} ${song.artists[0].name}`;
+            searchYouTube(query);
+        } else {
+            status.textContent = "Song not recognized.";
+        }
+    };
+
+    mediaRecorder.start();
+    setTimeout(() => mediaRecorder.stop(), 8000);
 }
 
 // ------------------------------
