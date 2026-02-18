@@ -3,7 +3,7 @@
 // ------------------------------
 
 // Replace with your YouTube API key
-const API_KEY = "YOUR_YOUTUBE_API_KEY";
+const API_KEY = "AIzaSyDhnD7PM1BveGHMhksMcW3RgX4L1avA81g";
 
 // DOM Elements
 const statusText = document.getElementById("status");
