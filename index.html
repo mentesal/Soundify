@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Soundify - Music Recognition</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- ACRCloud SDK -->
-  <script src="https://cdn.acrcloud.com/js/acrcloud.min.js"></script>
 </head>
 <body>
   <div class="container">
 
     <!-- Sidebar -->
     <div class="sidebar">
-
-      <!-- Modern Animated Logo -->
+      <!-- Logo -->
       <div class="logo">
         <svg class="logo-icon" viewBox="0 0 100 100">
           <defs>
@@ -23,17 +20,58 @@
               <stop offset="100%" stop-color="#00c3ff"/>
             </linearGradient>
           </defs>
-
-          <!-- Play Shape -->
           <polygon points="30,20 80,50 30,80" fill="url(#soundifyGradient)" />
         </svg>
       </div>
 
-      <!-- Sidebar Menu -->
+      <!-- Menu -->
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="home.html">Home</a></li>
         <li><a href="search.html">Search</a></li>
         <li><a href="playlist.html">Playlist</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="recognition-section">
+        <h2>Discover Music</h2>
+
+        <!-- Mic Buttons -->
+        <button class="mic-btn" onclick="recognizeMusic()">🎤 Say Song Name</button>
+        <button class="mic-btn" onclick="recognizeMusic()">🎧 Listen Song Playing</button>
+
+        <p id="status">Tap a button to recognize a song</p>
+
+        <!-- Results Grid -->
+        <div id="results" class="results-grid">
+          <!-- Example Song Cards -->
+          <div class="song-card">
+            <img src="https://via.placeholder.com/150" alt="Album Cover">
+            <h4>Blinding Lights</h4>
+            <p>The Weeknd</p>
+            <button class="play-btn">Play</button>
+          </div>
+          <div class="song-card">
+            <img src="https://via.placeholder.com/150" alt="Album Cover">
+            <h4>Levitating</h4>
+            <p>Dua Lipa</p>
+            <button class="play-btn">Play</button>
+          </div>
+          <div class="song-card">
+            <img src="https://via.placeholder.com/150" alt="Album Cover">
+            <h4>Save Your Tears</h4>
+            <p>The Weeknd</p>
+            <button class="play-btn">Play</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
       </ul>
 
     </div>
@@ -44,7 +82,7 @@
         <h2>Discover Music</h2>
 
         <!-- Voice Command -->
-        <button class="mic-btn" onclick="recognizeSong()">🎤 Say Song Name</button>
+        <button class="mic-btn" onclick="recognizeMusic()">🎤 Say Song Name</button>
 
         <!-- Music Recognition -->
         <button class="mic-btn" onclick="recognizeMusic()">🎧 Listen Song Playing</button>
