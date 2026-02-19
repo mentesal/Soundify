@@ -10,7 +10,8 @@
 
 body {
   background: #0f0f1a;
-  color: white;
+  color: #ffffff;
+  overflow-x: hidden;
 }
 
 .container {
@@ -26,6 +27,8 @@ body {
   background: linear-gradient(180deg, #141428, #0f0f1a);
   padding: 30px 20px;
   border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
@@ -36,17 +39,17 @@ body {
 }
 
 .logo-icon {
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(0, 255, 200, 0.6));
+  filter: drop-shadow(0 0 10px rgba(0, 255, 200, 0.6));
   transition: 0.3s ease;
 }
 
 .logo-icon:hover {
   transform: scale(1.1);
-  filter: drop-shadow(0 0 20px rgba(0, 255, 200, 1));
+  filter: drop-shadow(0 0 25px rgba(0, 255, 200, 1));
 }
 
 @keyframes float {
@@ -57,6 +60,7 @@ body {
 
 .sidebar ul {
   list-style: none;
+  flex: 1;
 }
 
 .sidebar ul li {
@@ -67,14 +71,18 @@ body {
   text-decoration: none;
   color: #b3b3b3;
   transition: 0.3s;
-  padding: 8px 15px;
-  border-radius: 10px;
-  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  position: relative;
 }
 
 .sidebar ul li a:hover {
   color: #ffffff;
-  background: rgba(123, 44, 255, 0.2);
+  background: rgba(123, 44, 255, 0.25);
+  box-shadow: 0 0 15px rgba(123, 44, 255, 0.5);
 }
 
 /* ==============================
@@ -85,213 +93,142 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 50px;
+  position: relative;
 }
 
+/* Recognition Section */
 .recognition-section {
   background: rgba(255, 255, 255, 0.03);
-  padding: 50px;
-  border-radius: 25px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  padding: 60px;
+  border-radius: 30px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   text-align: center;
   max-width: 700px;
   width: 100%;
-}
-
-/* Mic Button */
-.mic-btn {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: none;
-  font-size: 40px;
-  cursor: pointer;
-  background: radial-gradient(circle, #7b2cff, #00f0ff);
-  color: white;
-  transition: 0.3s;
-  box-shadow: 0 0 25px rgba(123, 44, 255, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 25px;
-}
-
-.mic-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 40px #00f0ff;
-}
-
-#status {
-  margin-top: 20px;
-  color: #b3b3b3;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(123, 44, 255, 0.2);
 }
 
 /* ==============================
-   Result Card
+   Mic Button
+============================== */
+.mic-btn {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: none;
+  font-size: 50px;
+  cursor: pointer;
+  background: radial-gradient(circle at top left, #7b2cff, #00f0ff);
+  color: white;
+  transition: 0.3s;
+  box-shadow: 0 0 30px rgba(123, 44, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.mic-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 50px #00f0ff;
+}
+
+/* Status text */
+#status {
+  margin-top: 25px;
+  color: #b3b3b3;
+  font-size: 16px;
+}
+
+/* ==============================
+   Result / Song Cards
 ============================== */
 .result-card,
 .song-card {
   background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
-  padding: 20px;
-  border-radius: 20px;
+  padding: 25px;
+  border-radius: 25px;
   text-align: center;
   transition: 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(123, 44, 255, 0.2);
+  box-shadow: 0 0 20px rgba(123, 44, 255, 0.2);
+  backdrop-filter: blur(5px);
+  margin: 15px 0;
 }
 
 .result-card h3,
 .song-card h4 {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: #00f0ff;
 }
 
 .song-card:hover,
 .result-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 0 15px rgba(123, 44, 255, 0.8);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 0 35px rgba(123, 44, 255, 0.7);
 }
 
 .song-card button,
-.play-btn {
-  margin-top: 10px;
-  padding: 8px 20px;
+.play-btn,
+.result-card button {
+  margin-top: 12px;
+  padding: 10px 25px;
   border: none;
-  border-radius: 20px;
-  background: #7b2cff;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #7b2cff, #00f0ff);
   color: white;
   cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.song-card button:hover,
+.play-btn:hover,
+.result-card button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(123, 44, 255, 0.8);
 }
 
 .song-card img {
-  border-radius: 10px;
-  margin-bottom: 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 200px;
 }
 
 /* ==============================
-   Search Page
-============================== */
-.search-page {
-  flex-direction: column;
-  padding: 40px;
-  overflow-y: auto;
-}
-
-.search-container {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.search-container input {
-  padding: 10px;
-  width: 300px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-}
-
-.search-container button {
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: none;
-  background: #7b2cff;
-  color: white;
-  cursor: pointer;
-}
-
-.results-grid,
-.playlist-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-/* Playlist Grid */
-.playlist-grid {
-  margin-top: 20px;
-}
-
-/* Player Container */
-.player-container {
-  margin-top: 30px;
-}
-
-/* ==============================
-   Responsive Layout
+   Responsive
 ============================== */
 @media (max-width: 900px) {
   .container {
     flex-direction: column;
-    height: auto;
   }
-
+  
   .sidebar {
     width: 100%;
-    height: auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    padding: 10px 0;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .sidebar ul {
     display: flex;
     flex-direction: row;
-    gap: 15px;
   }
 
   .sidebar ul li {
-    margin-bottom: 0;
+    margin: 0 10px;
   }
 
   .main-content {
     padding: 20px;
-    flex: 1;
-    justify-content: flex-start;
-    align-items: flex-start;
   }
 
-  .mic-btn {
-    width: 90px;
-    height: 90px;
-    font-size: 30px;
-  }
-
-  .results-grid,
-  .playlist-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-
-  iframe {
-    width: 100%;
-    height: 200px;
-  }
-}
-
-@media (max-width: 500px) {
-  .mic-btn {
-    width: 70px;
-    height: 70px;
-    font-size: 25px;
-  }
-
-  .search-container input {
-    width: 60%;
-    font-size: 14px;
-  }
-
-  .search-container button {
-    font-size: 14px;
-    padding: 8px 15px;
-  }
-
-  .song-card h4 {
-    font-size: 14px;
-  }
-
-  .play-btn,
-  .song-card button {
-    font-size: 12px;
-    padding: 5px 10px;
+  .recognition-section {
+    padding: 30px;
   }
 }
